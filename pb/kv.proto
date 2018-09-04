@@ -1,0 +1,40 @@
+syntax = "proto3";
+
+package pb;
+
+// Represents a single key, used for gets.
+message Key {
+    string key = 1;
+}
+
+// Represents a single value, can be used for put etc.
+message Value {
+    string value = 1;
+}
+
+// Represent a key-value pair that is used to return results.
+message KeyValue {
+    string key = 1;
+    string value = 2;
+}
+
+// Represent a void message indicating success
+message Success {
+}
+
+// Represents an error.
+message Error {
+    string msg = 1;
+}
+
+message KeyValueOrError {
+    oneof response {
+        KeyValue kv = 1;
+        Error err = 2;
+    }
+}
+
+service KvStore {
+    // Get the value associated with a key.
+    rpc Get (Key) returns (KeyValue) {}
+}

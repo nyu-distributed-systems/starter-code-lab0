@@ -1,0 +1,10 @@
+FROM golang:1.11.0
+WORKDIR /go/src/github.com/apanda/fa18-lab0/server
+COPY server .
+COPY pb ../pb
+
+RUN go get -v ./...
+RUN go install -v ./...
+
+EXPOSE 3000
+CMD ["server"]
